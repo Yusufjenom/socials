@@ -6,9 +6,11 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import multer from 'multer';
 import path from 'path';
-import {fileURLToPath} from 'url';
+import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
-import {connectDB} from './database/db.js';
+import { connectDB } from './database/db.js';
+import { register } from './controllers/authController.js';
+
 
 //Middlewares
 const __filename = fileURLToPath(import.meta.url);
@@ -17,34 +19,35 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({policy: "cross-origin"}));
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
-app.use(bodyParser.json({limit: "30mb", extended: true}));
+app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use('assets', express.static(path.join(__dirname, "public/assets")));
 
 
 //file storage configuration
 const storage = multer.diskStorage({
-    destination: function (req, file, cb){
+    destination: function (req, file, cb) {
         cb(null, "public/assets")
     },
-    filename: function(req, file, cb){
+    filename: function (req, file, cb) {
         cb(null, file.originalname);
     }
 });
 
-const upload = multer({storage});
+const upload = multer({ storage });
+
+//file routes
+app.post('/auth/register', upload.single('picture'), register);
 
 
-async function connectToDb(){
+async function connectToDb() {
     try {
-         await connectDB()
-        
-        await app.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
-        
+        await connectDB()
+        app.listen(process.env.PORT, () => console.log(`server running on port ${process.env.PORT}`))
 
     } catch (error) {
         console.log(error)
