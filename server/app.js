@@ -10,6 +10,11 @@ import { fileURLToPath } from 'url';
 import bodyParser from 'body-parser';
 import { connectDB } from './database/db.js';
 import { register } from './controllers/authController.js';
+import authRouter from './routes/authRoute.js';
+import userRouter from './routes/userRoute.js';
+import postRouter from './routes/postRoutes.js';
+import {createPost} from './controllers/postController.js';
+import {isVerified} from './middleware/authorization.js';
 
 
 //Middlewares
@@ -26,6 +31,9 @@ app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(cors());
 app.use('assets', express.static(path.join(__dirname, "public/assets")));
+app.use('/api/v1', authRouter);
+app.use('/api/v1', userRouter);
+app.use('/api/v1', postRouter);
 
 
 //file storage configuration
@@ -42,6 +50,7 @@ const upload = multer({ storage });
 
 //file routes
 app.post('/auth/register', upload.single('picture'), register);
+app.post('/posts', upload.single("picture"), createPost)
 
 
 async function connectToDb() {
