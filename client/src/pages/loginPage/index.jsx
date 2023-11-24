@@ -1,8 +1,36 @@
-import React from 'react'
+import React from 'react';
+import { Box, Typography, useTheme, useMediaQuery } from '@mui/material';
+import Form from './Form';
 
 function LoginPage() {
+  const theme = useTheme();
+  const isNonMobileScreens = useMediaQuery("(min-width: 100px")
   return (
-    <div>LoginPage</div>
+    <Box>
+      <Box width={'100%'} backgroundColor={theme.palette.background.alt}
+        padding={'1rem 6%'} textAlign={'center'}>
+        <Typography fontWeight='bold' fontSize="32"
+          color="primary"
+        >
+          YusZiya
+        </Typography>
+      </Box>
+
+      <Box
+        width={isNonMobileScreens ? "50%" : "93%"}
+        p={'2rem'}
+        m={'2rem auto'}
+        borderRadius={'1.5rem'}
+        backgroundColor={theme.palette.background.alt}
+      >
+        <Typography fontWeight={'500'} variant='h5' sx={{
+          mb: "1.5rem"
+        }}>
+           Welcome to YusZiya BlogHub
+        </Typography>
+        <Form/>
+      </Box>
+    </Box>
   )
 }
 
