@@ -33,7 +33,7 @@ function UserWidget({ userId, picturePath }) {
        // console.log(data)
         setUser(data);
     }
-console.log(user.user.firstname)
+
     useEffect(() => {
         getUser()
     }, []);
@@ -50,7 +50,7 @@ console.log(user.user.firstname)
         viewedProfile,
         impressions,
         friends
-    } = user.user;
+    } = user?.user;
 
     return (
         <WidgetWrapper>
