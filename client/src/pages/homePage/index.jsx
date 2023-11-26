@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, useMediaQuery } from "@mui/material";
 import Navbar from 'pages/navbar';
 import UserWidget from 'pages/widgets/UserWidget';
+import MyPostWidget from 'pages/widgets/MyPostWidget';
 import {useSelector} from 'react-redux';
 
 
@@ -26,7 +27,7 @@ function HomePage() {
           flexBasis={isNonMobileScreens ? "42" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
         >
-
+          <MyPostWidget picturePath={picturePath} />
         </Box>
 
         {isNonMobileScreens && (
