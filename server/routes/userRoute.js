@@ -8,7 +8,7 @@ import {isVerified} from '../middleware/authorization.js';
 
 const userRouter = express.Router();
 
-userRouter.get('/users/:id', getUser);
+userRouter.get('/:id', getUser);
 
 userRouter.get('/:id/friends', getUserFriends);
 

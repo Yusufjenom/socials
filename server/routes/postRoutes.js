@@ -6,7 +6,7 @@ const postRouter = express.Router();
 
 
 
-postRouter.get('/', getFeedPosts);
+postRouter.get('/posts', getFeedPosts);
 
 postRouter.get('/:userId/posts', getFeedPosts);
 

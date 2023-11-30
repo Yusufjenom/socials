@@ -6,7 +6,7 @@ import {
     GifBoxOutlined,
     ImageOutlined,
     MicOutlined,
-    MoreHorizOutlined
+    MoreHorizOutlined,
 } from '@mui/icons-material';
 import {
     Box,
@@ -15,7 +15,8 @@ import {
     useTheme,
     Button,
     IconButton,
-    useMediaQuery
+    useMediaQuery,
+    InputBase
 } from '@mui/material';
 import Dropzone from 'react-dropzone';
 import FlexBetween from 'components/FlexBetween';
@@ -126,7 +127,7 @@ function MyPostWidget({ picturePath }) {
             <Divider sx={{ margin: "1.25rem 0" }} />
 
             <FlexBetween>
-                <FlexBetween gap={'0.25rem'} onclick={() => setIsImage(!isImage)}>
+                <FlexBetween gap={'0.25rem'} onClick={() => setIsImage(!isImage)}>
                     <ImageOutlined sx={{ color: mediumMain }} />
                     <Typography
                         color={mediumMain}
@@ -136,7 +137,7 @@ function MyPostWidget({ picturePath }) {
                     </Typography>
                 </FlexBetween>
 
-                {isNonMobileScreens ? (
+                {!isNonMobileScreens ? (
                     <>
                         <FlexBetween gap={'0.25rem'}>
                             <GifBoxOutlined sx={{ color: mediumMain }} />
@@ -166,7 +167,20 @@ function MyPostWidget({ picturePath }) {
                         </FlexBetween>
 
                     </>
-                ) : <></>}
+                ) : (<FlexBetween gap={'0.15rem'}>
+                    <MoreHorizOutlined sx={{ color: mediumMain }} />
+                </FlexBetween>)}
+                <Button
+                disabled={!post}
+                onClick={handlePost}
+                sx={{
+                    color: palette.background.alt,
+                    backgroundColor: palette.primary.main,
+                    borderRadius: "3rem"
+                }}
+                >
+                    POST
+                </Button>
             </FlexBetween>
         </WidgetWrapper>
     )

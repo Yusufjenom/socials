@@ -89,7 +89,7 @@ function Form() {
             headers: { "Content-Type": "application/json" }
 
         });
-
+       console.log(loggedInResponse)
         const loggedIn = await loggedInResponse.json();
 
         onSubmitProps.resetForm();
